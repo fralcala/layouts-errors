@@ -10,12 +10,23 @@ export default function useFileConvertURI() {
   });
 
   function convertFile(fileData) {
+    if (!fileData) {
+      setFile({ loading: false, dataURI: "", fileData: fileData });
+      return;
+    }
+
     setFile({ loading: true, dataURI: "", fileData: fileData });
 
     const fr = new FileReader();
 
     fr.onloadend = function () {
-      setFile({ loading: false, dataURI: fr.result, fileData: file.fileData });
+      setTimeout(function () {
+        setFile({
+          loading: false,
+          dataURI: fr.result,
+          fileData: file.fileData,
+        });
+      }, 1000);
     };
 
     fr.readAsDataURL(fileData);

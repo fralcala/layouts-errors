@@ -10,10 +10,15 @@ export default function NewBookPage() {
 
     const formData = new FormData(e.currentTarget);
 
-    console.log("formData", formData.get("bookCover"));
+    console.log({
+      name: formData.get("bookName"),
+      coverImage: fileConvert.dataURI,
+    });
   }
 
-  console.log(fileConvert);
+  function onFileUpload(e) {
+    fileConvert.convertFile(e.currentTarget.files[0]);
+  }
 
   return (
     <main>
@@ -26,10 +31,23 @@ export default function NewBookPage() {
         </div>
         <div>
           <label htmlFor="bookCover">Cover Image:</label>
-          <input type="file" accept="image/*" id="bookCover" name="bookCover" />
+          <input
+            onChange={onFileUpload}
+            type="file"
+            accept="image/*"
+            id="bookCover"
+            name="bookCover"
+          />
         </div>
         <div>
-          <input type="submit" value="Add Book" />
+          <img src={fileConvert.dataURI} height="100" />
+        </div>
+        <div>
+          <input
+            type="submit"
+            value="Add Book"
+            disabled={fileConvert.loading}
+          />
         </div>
       </form>
     </main>
