@@ -1,6 +1,10 @@
 "use client";
 
+import useFileConvertURI from "@/hooks/useFileConvertURI";
+
 export default function NewBookPage() {
+  const fileConvert = useFileConvertURI();
+
   function onAddBook(e) {
     e.preventDefault();
 
@@ -8,6 +12,8 @@ export default function NewBookPage() {
 
     console.log("formData", formData.get("bookCover"));
   }
+
+  console.log(fileConvert);
 
   return (
     <main>
